@@ -1,4 +1,4 @@
-package com.droidcon.nyc.ble;
+package com.droidcon.nyc.ble.part2;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.util.Log;
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
+import com.estimote.sdk.Utils;
 
 import java.util.List;
 
@@ -26,7 +27,18 @@ public class MainActivity extends Activity {
 
         beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override public void onBeaconsDiscovered(Region region, List<Beacon> beacons) {
-                Log.d("BLEDEMO", "Ranged beacons [" + beacons.size() + "]: " + beacons);
+                if(beacons != null){
+                    for(Beacon beacon : beacons){
+                        final Utils.Proximity proximity = Utils.computeProximity(beacon);
+                        Log.d("BLEDEMO", "Proximity of " + beacon.getMajor() + " - " + beacon.getMinor() + " is: " + proximity);
+                        //Will be one of: Utils.Proximity.IMMEDIATE, NEAR, FAR, or UNKNOWN
+
+                        // double meters = Utils.computeAccuracy(beacon);//JavaDocs: Returns distance in meters based on beacon's RSSI and measured power.
+                        // Log.d("EstimoteDemo", "Proximity of " + beacon.getMajor() + " - " + beacon.getMinor() + " is: " + meters + " meters.");
+                    }
+                    Log.d("BLEDEMO", "-------");
+                }
+
             }
         });
     }
@@ -64,5 +76,4 @@ public class MainActivity extends Activity {
 
         beaconManager.disconnect();
     }
-
 }
