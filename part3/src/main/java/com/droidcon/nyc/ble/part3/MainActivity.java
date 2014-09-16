@@ -7,6 +7,8 @@ import android.bluetooth.BluetoothManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.UUID;
+
 
 public class MainActivity extends Activity implements BluetoothAdapter.LeScanCallback {
 
@@ -23,6 +25,7 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
 
         //Start scanning
         bluetoothAdapter.startLeScan(this); // All the things!
+
         //UUID[] uuids = new UUID[]{UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),};
         //bluetoothAdapter.startLeScan(uuids, this);
     }
@@ -34,12 +37,11 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
             Log.d("BLEDEMO", "Device UUID    " + device.getUuids());
             Log.d("BLEDEMO", "Device MAC ADD " + device.getAddress());
             Log.d("BLEDEMO", "Device MAJ VER " + device.getBluetoothClass().getMajorDeviceClass());
-            Log.d("BLEDEMO", "Device MIN VER " + device.getBluetoothClass().getDeviceClass());
+            Log.d("BLEDEMO", "Device CLASS   " + device.getBluetoothClass().getDeviceClass());
             Log.d("BLEDEMO", "Device NAME    " + device.getName());
         }
         Log.d("BLEDEMO", "-----------");
     }
-
 
     @Override
     protected void onStop() {

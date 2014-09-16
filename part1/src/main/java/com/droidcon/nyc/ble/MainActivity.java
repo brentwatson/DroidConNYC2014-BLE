@@ -8,6 +8,7 @@ import android.util.Log;
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
+import com.estimote.sdk.Utils;
 
 import java.util.List;
 
@@ -25,7 +26,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         beaconManager.setRangingListener(new BeaconManager.RangingListener() {
-            @Override public void onBeaconsDiscovered(Region region, List<Beacon> beacons) {
+            @Override
+            public void onBeaconsDiscovered(Region region, List<Beacon> beacons) {
                 Log.d("BLEDEMO", "Ranged beacons [" + beacons.size() + "]: " + beacons);
             }
         });
